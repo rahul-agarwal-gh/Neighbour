@@ -223,10 +223,14 @@ $("#find-path").on("click", function(event){
         document.getElementById(current).style.backgroundColor = "blue";
 
         if(current === destId)
-            break;
+        {
+            queue.items = [];//empty the queue
+             break;
+        }
+        
         
         let neighbours = getNeighbour(document.getElementById(current));
-
+    
         for(let i = 0; i < 4; i++)
         {
                 if(neighbours[i] !== null && (!queue.checkVisited(parseInt(neighbours[i])))){
@@ -239,15 +243,18 @@ $("#find-path").on("click", function(event){
         
     }
 
-    //printing path
+    //printing path when queue is empty that is we have found the destination node
 
-    let index = parseInt(destId);
-    while(index != parseInt(homeId)){
-
-        let parentOfCurrent = parentID[index];
-        document.getElementById(index.toString()).style.backgroundColor = "Yellow";
-        index = parseInt(parentOfCurrent);
+    if(queue.isEmpty()){
+        let index = parseInt(destId);
+        while(index != parseInt(homeId)){
+    
+            let parentOfCurrent = parentID[index];
+            document.getElementById(index.toString()).style.backgroundColor = "Yellow";
+            index = parseInt(parentOfCurrent);
+        }
     }
+   
     
 });
 
