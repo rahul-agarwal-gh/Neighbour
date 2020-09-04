@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--adding google fonts-->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Ubuntu&display=swap" rel="stylesheet">
+
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  
+  <link rel="stylesheet" href="css/styles.css">
+
+  <title>Document</title>
+
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"> </script>
+</head>
+<body>
+
+
+  <!--Title Bar-->
+  <section id="title">
+    
+    <div class="container-fluid">
+
+      <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <a class="navbar-brand" href="index.html">Neighbours</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapseContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse"  id="navbarCollapseContent">
+
+          <ul class="navbar-nav ml-auto"> 
+           
+            <li class="nav-item dropdown active"><!--for algorthim nav items that will have dropdown algorithms-->
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Algorithms
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Algorithm 1</a>
+                <a class="dropdown-item" href="#">Algorithm 2</a>
+                <a class="dropdown-item" href="#">Algorithm 3</a>
+                <a class="dropdown-item" href="#">Algorithm 4</a>
+                <a class="dropdown-item" href="#">Algorithm 5</a>
+                <a class="dropdown-item" href="#">Algorithm 6</a>
+                <div class="dropdown-divider"></div>
+              </div>
+            </li>
+
+            <li class="nav-item"><!--each nav item will have a nav-item class-->
+              <a class="nav-link" href="#">Some other item</a>
+            </li>
+            
+            <li class="nav-item"><!--each nav item will have a nav-item class-->
+              <a class="nav-link" href="#">Some other item </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="#">Some other item</a>
+            </li>
+
+          </ul>
+          
+        </div>
+      </nav>
+
+    </div>
+
+  </section>
+
+  <!--additional user legends-->
+  <section>
+    <div class="user-legends">
+        .<!--add some content here later-->
+
+      <div class="legends">
+        <button class="legends-button" id="home-btn">
+          <i class="fas fa-home"></i>
+          Home
+        </button>
+      </div>
+
+      <div class="legends">
+        <button  class="legends-button" id="dest-btn">
+          <i class="fas fa-map-marker-alt"></i>
+          Destination
+        </button>
+      </div>
+
+      <div class="legends">
+        <button  class="legends-button" id="find-path">
+          <i class="fas fa-road"></i>
+          Find Path
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!--Grid-->
+  <section id="graph-section">
+
+    <!--This div is the container of the whole grid-->
+    <div id="grid-container" class="container-fluid row">
+
+      <!-- <div class="row">  -->
+        <!--This is the outline of the grid-->
+      
+          <table id="grid-perimeter" class="col-lg-12">
+    
+          </table>
+  
+        
+      <!-- </div> -->
+      
+    </div>
+
+  </section>
+
+   <!--Javascript for bootstrap -->
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>

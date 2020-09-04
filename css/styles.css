@@ -1,0 +1,70 @@
+#title{
+    background-color : #00e0ff;
+    color : #fff;
+}
+
+.user-legends{
+    background-color: #dff5f2;
+    color: #dff5f2;
+    padding : 1.5%;
+    
+}
+
+.legends{
+    color : darkolivegreen;
+    display: inline-block;
+}
+
+.legends-button{
+
+    border : none;
+    background-color: #dff5f2;
+    margin : 0% 0.5rem;
+}
+
+#graph-section{
+
+     border : 0%;
+     margin : 0%;   
+     padding : 0.5%;
+
+}
+
+ table{
+    border-spacing: 0;
+    border : 0%;
+    margin-left : 15px;   
+    margin-right: 10px;
+    padding : 0px;
+    border-collapse: collapse;
+} 
+
+tr{
+    margin : 0px;
+    padding : 0px;
+    border : 0px;
+}
+
+#grid-container{
+    padding: 0px;
+ } 
+
+#grid-perimeter{
+    
+} 
+
+.cell{
+    
+}
+
+td{
+    box-sizing: border-box ;
+    margin: 0px;
+    padding: 0px;
+    background-color: #fff;
+    border: 1px solid #4970f0;
+    height: 30px;
+    width: 30px;
+    max-width: 30px;
+    max-height: 30px;
+}
