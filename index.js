@@ -188,16 +188,16 @@ function getNeighbour(element){
     let up = null;
     let down = null;
     
-    if((parseInt(elId)-1) % 52 == 0) prev = null;  
+    if((parseInt(elId)-1) % 52 == 0 || $(document.getElementById((parseInt(elId) - 1).toString())).css("border-color") == "rgb(29, 45, 80)") prev = null;  
     else prev = (parseInt(elId) - 1).toString();
     
-    if(parseInt(elId) % 52 == 0)next = null;
+    if(parseInt(elId) % 52 == 0 || $(document.getElementById((parseInt(elId) + 1).toString())).css("border-color") == "rgb(29, 45, 80)")next = null;
     else next = (parseInt(elId) + 1).toString();
 
-    if((parseInt(elId)-52 < 1)) up = null;
+    if((parseInt(elId)-52 < 1) || $(document.getElementById((parseInt(elId) - 52).toString())).css("border-color") == "rgb(29, 45, 80)") up = null;
     else up = (parseInt(elId) - 52).toString();
 
-    if((parseInt(elId) + 52 > 1040)) down = null;
+    if((parseInt(elId) + 52 > 1040) || $(document.getElementById((parseInt(elId) + 52).toString())).css("border-color") == "rgb(29, 45, 80)") down = null;
     else down = (parseInt(elId) + 52).toString();
         
     return [prev, next, up, down];
@@ -206,7 +206,7 @@ function getNeighbour(element){
 
 let parentID = new Array(1040);
 
-$("#find-path").on("click", function(event){
+$("#find-path").on("click", async function(event){
 
     let homeId = $(homeMarker.parent).attr("id");
     let destId = $(destMarker.parent).attr("id");
@@ -220,14 +220,15 @@ $("#find-path").on("click", function(event){
 
         let current = queue.dequeue();
         
+        await new Promise(done => setTimeout(() => done(), 10));  
+
         document.getElementById(current).style.backgroundColor = "blue";
 
         if(current === destId)
         {
             queue.items = [];//empty the queue
-             break;
+            break;
         }
-        
         
         let neighbours = getNeighbour(document.getElementById(current));
     
@@ -243,19 +244,53 @@ $("#find-path").on("click", function(event){
         
     }
 
-    //printing path when queue is empty that is we have found the destination node
+    printPath(homeId, destId);
+    
+});
 
+
+
+async function printPath(homeId, destId){
     if(queue.isEmpty()){
         let index = parseInt(destId);
         while(index != parseInt(homeId)){
     
             let parentOfCurrent = parentID[index];
+            await new Promise(done => setTimeout(() => done(), 10));  
+
             document.getElementById(index.toString()).style.backgroundColor = "Yellow";
             index = parseInt(parentOfCurrent);
         }
     }
-   
-    
+}
+
+
+let mouseDown = 0;
+
+$("td").on("mousedown",function(e){
+    mouseDown = 1;
+    makeBlack(e);
+});
+
+$("td").on("mouseup", function(e){
+    mouseDown = 0;
+
+})
+
+$("td").on("mouseenter", function(e){
+
+    if(mouseDown === 1){
+        makeBlack(e);
+    }
 });
 
 
+function makeBlack(e){
+
+    if($("#home-btn").css("background-color") != "rgb(165, 42, 42)" && $("#dest-btn").css("background-color") != "rgb(165, 42, 42)" && !(e.currentTarget.hasChildNodes())){
+        $(e.currentTarget).css("background-color", "#1d2d50"); 
+        $(e.currentTarget).css("border-color", "#1d2d50"); 
+    }
+    
+
+}
