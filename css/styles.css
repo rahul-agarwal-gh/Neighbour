@@ -20,6 +20,26 @@
     border : none;
     background-color: #dff5f2;
     margin : 0% 0.5rem;
+    border-radius: 10%;
+}
+
+.text-legends{
+
+    border : none;
+    background-color: #dff5f2;
+    margin : 0% 0.5rem;
+    border-radius: 10%;
+    
+}
+
+
+.legends-button:hover{
+
+    border : none;
+    background-color: #43f4fa;
+    margin : 0% 0.5rem;
+    cursor: pointer;
+    border-radius: 10%;
 }
 
 #graph-section{

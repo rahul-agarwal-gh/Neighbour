@@ -50,6 +50,36 @@ class Queue
 
 let queue = new Queue();
 
+
+class Stack { 
+  
+    constructor() 
+    { 
+        this.elements = []; 
+    } 
+  
+    push(element) 
+    { 
+        this.elements.push(element); 
+    } 
+    pop() 
+    { 
+        if (this.elements.length == 0) 
+            return "Underflow"; 
+        return this.elements.pop(); 
+    } 
+    peek() 
+    { 
+        return this.elements[this.elements.length - 1]; 
+    } 
+    isEmpty() 
+    { 
+        return this.elements.length == 0; 
+    }       
+} 
+
+let stack = new Stack();
+
 let tableWidthString = $("table").css("width");//getting the width of our table. since we used col-lg-12 class with table, its
 //width is whatever the width of our viewport is.using width, we determine how many cells we want in each row
 let len = tableWidthString.length;//table width is in string format like "1400px". we took out the px and stored width in an integer
@@ -110,6 +140,12 @@ let destClick = false;
 
 $("#home-btn").on("click", function markHome(event){
 
+    
+    if($("#dest-btn").css("background-color") == "rgb(165, 42, 42)"){
+        destClick = false;    
+        $("#dest-btn").css("background-color", "rgb(223,245,242)");
+    }
+
     if(homeClick == false){
 
         homeClick = true;
@@ -145,6 +181,11 @@ $("#home-btn").on("click", function markHome(event){
 });
 
 $("#dest-btn").on("click", function markdest(event){
+
+    if($("#home-btn").css("background-color") == "rgb(165, 42, 42)"){
+        homeClick = false;    
+        $("#home-btn").css("background-color", "rgb(223,245,242)");
+    }
 
     if(destClick == false){
 
@@ -206,11 +247,41 @@ function getNeighbour(element){
 
 let parentID = new Array(1040);
 
-$("#find-path").on("click", async function(event){
+$("#find-path").on("click", function(event){
+    
+    
+    if($("#home-btn").css("background-color") == "rgb(165, 42, 42)"){
+        homeClick = false;    
+        $("#home-btn").css("background-color", "rgb(223,245,242)");
+    }
+
+    if($("#dest-btn").css("background-color") == "rgb(165, 42, 42)"){
+        destClick = false;    
+        $("#dest-btn").css("background-color", "rgb(223,245,242)");
+    }
 
     let homeId = $(homeMarker.parent).attr("id");
     let destId = $(destMarker.parent).attr("id");
 
+    let algo = $(".dropdown-item.active").text();//getting which algorithm user has selected
+    
+    switch (algo) {
+        case "BFS" :
+            BFS(homeId, destId);
+            break;
+    
+        case "DFS" :
+            DFS(homeId, destId);
+            break;
+
+        default:
+            break;
+    }
+    
+});
+
+async function BFS(homeId, destId){
+    
     parentID[homeId] = -1; //making parentId of home node as -1 as home node is source node
 
     queue.enqueue(homeId);
@@ -236,7 +307,7 @@ $("#find-path").on("click", async function(event){
         {
                 if(neighbours[i] !== null && (!queue.checkVisited(parseInt(neighbours[i])))){
                         queue.enqueue(neighbours[i]);
-                        queue.markVisited(neighbours[i]);
+                        queue.markVisited(parseInt(neighbours[i]));
                         parentID[parseInt(neighbours[i])] = current; //index is number and id is stored as string
                 }
                     
@@ -244,27 +315,64 @@ $("#find-path").on("click", async function(event){
         
     }
 
-    printPath(homeId, destId);
+    printPath(homeId, destId);    
+}
+
+
+async function DFS(homeId, destId){
     
-});
+    parentID[homeId] = -1;
 
+    stack.push(homeId); //initially pushing home element on the stack 
+    queue.visited[parseInt(homeId)] == true;//and marking it as visited
 
+    while(!stack.isEmpty()) { 
+         
+                let current = stack.pop(); 
+                
+                await new Promise(done => setTimeout(() => done(), 10));  
+
+                document.getElementById(current).style.backgroundColor = "blue";
+
+                if(current === destId)
+                    break;  
+
+                let neighbours = getNeighbour(document.getElementById(current));
+    
+                for(let i = 0; i < 4; i++)
+                {
+                    //only valid and unvisited neighbours will be pushed onto the stack
+                    if(neighbours[i] !== null && (!queue.checkVisited(parseInt(neighbours[i])))){
+                        stack.push(neighbours[i]);
+                        queue.markVisited(parseInt(neighbours[i]));//mark the pushed neighbours as visited
+                        parentID[parseInt(neighbours[i])] = current;
+                    }
+                }
+               
+                  
+            } 
+
+            printPath(homeId, destId);    
+}
 
 async function printPath(homeId, destId){
-    if(queue.isEmpty()){
+
+    if(queue.isEmpty() && parentID[parseInt(destId)] !== undefined){
         let index = parseInt(destId);
         while(index != parseInt(homeId)){
     
             let parentOfCurrent = parentID[index];
             await new Promise(done => setTimeout(() => done(), 10));  
-
+            
             document.getElementById(index.toString()).style.backgroundColor = "Yellow";
+            document.getElementById(index.toString()).style.borderColor = "Yellow";
             index = parseInt(parentOfCurrent);
         }
     }
+    
 }
 
-
+//implementing wall functionality
 let mouseDown = 0;
 
 $("td").on("mousedown",function(e){
@@ -274,7 +382,6 @@ $("td").on("mousedown",function(e){
 
 $("td").on("mouseup", function(e){
     mouseDown = 0;
-
 })
 
 $("td").on("mouseenter", function(e){
@@ -294,3 +401,12 @@ function makeBlack(e){
     
 
 }
+
+$(".dropdown-item").on("click",function(e){
+
+    let currentActive = $(".dropdown-item.active");
+    currentActive.removeClass("active");
+    $(e.currentTarget).addClass("active");
+    $("#navbarDropdown").text("Algorithm: "+$(e.currentTarget).text());
+    
+});
